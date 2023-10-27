@@ -17,4 +17,9 @@ public interface IArticleService {
 
     // 统计前15的热度文章信息
     public List<Article> getHeatArticles();
+
+    // 根据文章id查询单个文章详情
+    public Article selectArticleWithId(Integer id);
+
+
 }

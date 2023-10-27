@@ -1,5 +1,6 @@
 package cn.lzzy.web.client;
 
+import cn.lzzy.service.ISiteService;
 import com.github.pagehelper.PageInfo;
 import cn.lzzy.model.domain.Article;
 import cn.lzzy.service.IArticleService;
@@ -27,6 +28,7 @@ public class IndexController {
     @Autowired
     private IArticleService articleServiceImpl;
 
+
     // 博客首页，会自动跳转到文章页
     @GetMapping(value = "/")
     private String index(HttpServletRequest request) {
@@ -43,6 +45,20 @@ public class IndexController {
         request.setAttribute("articleList", articleList);
         logger.info("分页获取文章信息: 页码 " + page + ",条数 " + count);
         return "client/index";
+    }
+
+    // 文章详情查询
+    @GetMapping(value = "/article/{id}")
+    public String getArticleById(@PathVariable("id") Integer id,
+                                 HttpServletRequest request) {
+        Article article = articleServiceImpl.selectArticleWithId(id);
+        if (article != null) {
+            request.setAttribute("article", article);
+            return "client/articleDetails";
+        } else {
+            logger.warn("查询文章详情结果为空，查询文章id: " + id);
+            return "comm/error_404";
+        }
     }
 
 }
