@@ -37,7 +37,7 @@ public class LoginController {
 
     // 对Security拦截的无权限访问异常处理路径映射
     @GetMapping(value = "/errorPage/{page}/{code}")
-    public String AccessExecptionHandler(@PathVariable("page") String page, @PathVariable("code") String code) {
+     public String AccessExecptionHandler(@PathVariable("page") String page, @PathVariable("code") String code) {
         return page+"/"+code;
     }
 }

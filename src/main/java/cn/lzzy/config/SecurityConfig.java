@@ -101,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 5、针对访问无权限页面出现的403页面进行定制处理
         http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandler() {
             @Override
-            public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
+             public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
                 // 如果是权限访问异常，则进行拦截到指定错误页面
                 RequestDispatcher dispatcher = httpServletRequest.getRequestDispatcher("/errorPage/comm/error_403");
                 dispatcher.forward(httpServletRequest, httpServletResponse);
