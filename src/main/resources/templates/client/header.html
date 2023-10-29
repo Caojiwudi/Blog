@@ -36,6 +36,7 @@
             <form name="logoutform" th:action="@{/logout}" method="post"></form>
             <a class="header-info" sec:authorize="isAnonymous()" th:href="@{/login}" >登录</a>
             <a class="header-info" sec:authorize="isAuthenticated()" href="javascript:document.logoutform.submit();" >退出</a>
+            <a class="header-info" th:href="@{/showuser}" >用户信息</a>
         </div>
     </div>
 </header>
