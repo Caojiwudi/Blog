@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户信息</title>
+    <link href="/user/css/updateUser.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+    <h2>修改用户名</h2>
+    <form action="/updateUser" method="post">
+
+        <div class="form-group">
+            用户名: <input name="username" type="text"/><br/>
+        </div>
+
+        <div class="form-group">
+            密&nbsp;&nbsp;码: <input name="password" type="password"/><br/>
+        </div>
+        <button type="submit">修改</button>
+    </form>
+</div>
+
+</body>
+
+</html>

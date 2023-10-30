@@ -111,6 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeParameter("rememberme")
                 .tokenValiditySeconds(20)
                 .tokenRepository(tokenRepository());
+        http.csrf().disable();
     }
     @Bean
     public JdbcTokenRepositoryImpl tokenRepository() {

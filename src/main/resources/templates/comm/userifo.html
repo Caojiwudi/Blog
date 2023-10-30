@@ -15,6 +15,7 @@
                         style="color:darkkhaki"></span>，您有以下权限
     </h2>
     <h2><a th:href="@{/}" class="navbar-logo">返回首页</a></h2>
+    <h3><a th:href="@{/toUpdate}">修改用户名</a></h3>
 </div>
 <hr>
 <div sec:authorize="hasRole('ROLE_common')">
