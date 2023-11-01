@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lzzy.dao.UserAuthorityMapper">
+    <insert id="insertUser" parameterType="cn.lzzy.model.domain.UserAuthority">
+        INSERT INTO t_user_authority (user_id, authority_id)
+        VALUES (#{userId}, 2)
+    </insert>
+</mapper>

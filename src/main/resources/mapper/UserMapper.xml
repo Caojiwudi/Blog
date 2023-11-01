@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lzzy.dao.UserMapper">
+
+    <insert id="insertUser" parameterType="cn.lzzy.service.impl.UserService">
+        INSERT INTO t_user (username, password, email, created, valid)
+        VALUES (#{username}, #{password}, #{email}, CURRENT_DATE, 1)
+    </insert>
+
+    <select id="getNewUserId" resultType="int">
+        SELECT id
+        FROM t_user
+        ORDER BY created DESC LIMIT 1
+    </select>
+
+    <select id="findByUsername" resultType="cn.lzzy.service.impl.UserService">
+        SELECT *
+        FROM t_user
+        WHERE username = #{username}
+    </select>
+
+</mapper>
