@@ -15,5 +15,10 @@ public interface ISiteService {
 
     // 获取后台统计数据
     public StaticticsBo getStatistics();
+    // 最新发表的文章
+    public List<Article> recentArticles(int count);
+
+    // 更新某个文章的统计数据
+    public void updateStatistics(Article article);
 
 }

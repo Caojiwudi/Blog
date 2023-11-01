@@ -7,12 +7,14 @@ import cn.lzzy.dao.StatisticMapper;
 import cn.lzzy.model.domain.Article;
 import cn.lzzy.model.domain.Statistic;
 import cn.lzzy.service.IArticleService;
+import com.vdurmont.emoji.EmojiParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,6 +79,37 @@ public class ArticleServiceImpl implements IArticleService {
             }
         }
         return article;
+    }
+    // 发布文章
+    @Override
+    public void publish(Article article) {
+        // 去除表情
+        article.setContent(EmojiParser.parseToAliases(article.getContent()));
+        article.setCreated(new Date());
+        article.setHits(0);
+        article.setCommentsNum(0);
+        // 插入文章，同时插入文章统计数据
+        articleMapper.publishArticle(article);
+        statisticMapper.addStatistic(article);
+    }
+
+    // 更新文章
+    @Override
+    public void updateArticleWithId(Article article) {
+        article.setModified(new Date());
+        articleMapper.updateArticleWithId(article);
+        redisTemplate.delete("article_" + article.getId());
+    }
+
+    // 删除文章
+    @Override
+    public void deleteArticleWithId(int id) {
+        // 删除文章的同时，删除对应的缓存
+        articleMapper.deleteArticleWithId(id);
+        redisTemplate.delete("article_" + id);
+        // 同时删除对应文章的统计数据
+        statisticMapper.deleteStatisticWithId(id);
+
     }
 
 }
