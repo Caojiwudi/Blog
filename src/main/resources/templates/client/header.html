@@ -37,7 +37,7 @@
             <a class="header-info" sec:authorize="isAnonymous()" th:href="@{/login}" >登录</a>
             <a class="header-info" sec:authorize="isAuthenticated()" href="javascript:document.logoutform.submit();" >退出</a>
             <a class="header-info" th:href="@{/showuser}" >用户信息</a>
-            <a  class="header-info" href="/admin">后台管理</a>
+            <span sec:authorize="hasAnyAuthority('ROLE_admin')"><a class="header-info" href="/admin">后台管理</a></span>
         </div>
     </div>
 </header>

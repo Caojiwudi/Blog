@@ -37,7 +37,7 @@ public class AdminController {
     public String index(HttpServletRequest request) {
         // 获取最新的5篇博客、评论以及统计数据
         List<Article> articles = siteServiceImpl.recentArticles(5);
-        List<Comment> comments =siteServiceImpl.recentComments(5);
+        List<Comment> comments =siteServiceImpl.recentComments(15);
         StaticticsBo staticticsBo = siteServiceImpl.getStatistics();
         // 向Request域中存储数据
         request.setAttribute("comments",comments);
