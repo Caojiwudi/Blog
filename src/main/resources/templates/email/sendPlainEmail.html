@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>发送邮件</title>
+</head>
+<body>
+<h2>发送纯文本邮件</h2>
+<div th:if="${uploadStatus}" style="color: red" th:text="${uploadStatus}">上传成功</div>
+<form action="/sendEmail" method="post">
+  <label for="recipient">收件人:</label><br>
+  <input type="text" id="recipient" name="recipient"><br>
+  <label for="subject">主题:</label><br>
+  <input type="text" id="subject" name="subject"><br>
+  <label for="text">内容:</label><br>
+  <textarea id="text" name="text" rows="4" cols="50"></textarea><br>
+  <input type="submit" value="发送邮件">
+</form>
+</body>
+</html>
