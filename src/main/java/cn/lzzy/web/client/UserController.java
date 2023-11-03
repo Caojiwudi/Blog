@@ -101,4 +101,21 @@ public class UserController {
         List<UserService> users = userMapper.findByUsername(username);
         return !users.isEmpty();
     }
+
+    // 向用户信息删除页跳转
+    @GetMapping("/deleteUser")
+    public String deleteUser() {
+        // 获取当前登录用户
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // 查询当前用户名id
+        int userId = userMapper.getNewUserId();
+        userMapper.deleteUser(userId);
+        userAuthorityMapper.deleteUserAuthority(userId);
+        // 清除认证信息
+        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication1 != null) {
+            SecurityContextHolder.getContext().setAuthentication(null);
+        }
+        return "comm/user_delete_finish";
+    }
 }

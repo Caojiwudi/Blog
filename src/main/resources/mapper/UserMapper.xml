@@ -19,4 +19,11 @@
         WHERE username = #{username}
     </select>
 
+    <!-- 根据id删除用户信息 -->
+    <delete id="deleteUser" parameterType="int">
+        DELETE
+        FROM t_user
+        WHERE id = #{id}
+    </delete>
+
 </mapper>

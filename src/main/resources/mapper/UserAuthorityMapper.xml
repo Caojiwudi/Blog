@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.lzzy.dao.UserAuthorityMapper">
+
     <insert id="insertUser" parameterType="cn.lzzy.model.domain.UserAuthority">
         INSERT INTO t_user_authority (user_id, authority_id)
         VALUES (#{userId}, 2)
     </insert>
+
+    <!-- 根据id删除用户权限信息 -->
+    <delete id="deleteUserAuthority" parameterType="int">
+        DELETE
+        FROM t_user_authority
+        WHERE user_id = #{id}
+    </delete>
+
+    <!-- 查询用户权限id -->
+    <select id="getAuthoritiesByUserId" resultType="int">
+        SELECT authority_id
+        FROM t_user_authority
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 根据权限id查询用户权限 -->
+    <select id="getAuthorityById" parameterType="int" resultType="java.lang.String">
+        SELECT authority
+        FROM t_authority
+        WHERE id = #{id}
+    </select>
 </mapper>

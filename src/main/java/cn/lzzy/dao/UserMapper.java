@@ -21,4 +21,6 @@ public interface UserMapper {
 
     // 获取新用户id
     int getNewUserId();
+    // 删除用户信息
+    int deleteUser(int userId);
 }

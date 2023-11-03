@@ -12,4 +12,12 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserAuthorityMapper {
     // 注册新用户权限
     int insertUser(UserAuthority userAuthority);
+    // 查看用户权限
+    int getAuthoritiesByUserId(int userId);
+
+    // 删除用户信息权限
+    int deleteUserAuthority(int userId);
+
+    //根据权限id查找用户权限
+    String getAuthorityById(int authorityId);
 }
