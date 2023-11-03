@@ -26,5 +26,5 @@ public interface ISiteService {
     // 更新某个文章的统计数据
     public void updateStatistics(Article article);
     //最新收到的评论
-    public List<Comment> recentComments(int count);
+    public List<Comment> recentComments(int count) ;
 }
