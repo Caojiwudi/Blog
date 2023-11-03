@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>修改用户信息</title>
     <link href="/user/css/updateUser.css" rel="stylesheet">
 </head>
@@ -9,7 +11,7 @@
 <body>
 <div class="container">
     <h2>修改用户名</h2>
-    <form action="/updateUser" method="post">
+    <form action="/updateUser" method="post" th:action="@{/updateUser}">
 
         <div class="form-group">
             用户名: <input name="username" type="text"/><br/>

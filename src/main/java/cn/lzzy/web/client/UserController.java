@@ -62,7 +62,7 @@ public class UserController {
         String csrf_token = request.getParameter("_csrf");
         System.out.println(csrf_token);
         iUserService.updateByUsername(username, getUser2());
-        return "ok";
+        return "用户名修改成功";
     }
     // 新用户注册
     @GetMapping("/toRegister") // http://localhost/toRegister
