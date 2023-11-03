@@ -54,6 +54,7 @@ public class AdminController {
     // 发表文章
     @PostMapping(value = "/article/publish")
     @ResponseBody
+
     public ArticleResponseData publishArticle(Article article) {
         if (StringUtils.isBlank(article.getCategories())) {
             article.setCategories("默认分类");

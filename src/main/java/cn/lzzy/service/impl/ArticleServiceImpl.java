@@ -1,5 +1,6 @@
 package cn.lzzy.service.impl;
 
+import cn.lzzy.dao.CommentMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import cn.lzzy.dao.ArticleMapper;
@@ -32,6 +33,8 @@ public class ArticleServiceImpl implements IArticleService {
     private StatisticMapper statisticMapper;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private CommentMapper commentMapper;
 
     // 分页查询文章列表
     @Override
@@ -109,7 +112,8 @@ public class ArticleServiceImpl implements IArticleService {
         redisTemplate.delete("article_" + id);
         // 同时删除对应文章的统计数据
         statisticMapper.deleteStatisticWithId(id);
-
+        // 同时删除对应文章的评论数据
+        commentMapper.deleteCommentWithId(id);
     }
 
 }
