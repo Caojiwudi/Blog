@@ -27,6 +27,11 @@ public class EmailController {
     @Value("${spring.mail.username}")
     private String form; // 从配置文件中读取发件人邮箱地址
 
+    @GetMapping(value = "/shou")
+    public String shou(){
+        return "email/index";
+    }
+
     @GetMapping("/toEmail")         //http://localhost/toEmail
     public String toUpload() {
         return "email/sendPlainEmail";
@@ -37,17 +42,17 @@ public class EmailController {
 
         // 判断目标邮箱地址是否为空
         if (recipient == null || recipient.trim().isEmpty()) {
-            System.out.println("请确保邮箱地址不为空");
+            System.out.println("请输入邮箱地址");
             ModelAndView mav = new ModelAndView("email/sendPlainEmail");  //假设upload是你的视图名称
-            mav.addObject("uploadStatus", "请确保邮箱地址不为空");  //你可以在视图中使用这些数据
+            mav.addObject("uploadStatus", "请输入邮箱地址");  //你可以在视图中使用这些数据
             return mav;
         }
 
         // 判断邮箱格式是否正确
         if (!isValidEmail(recipient)) {
-            System.out.println("请检查邮箱格式是否正确");
+            System.out.println("邮箱格式不正确");
             ModelAndView mav = new ModelAndView("email/sendPlainEmail");  //假设upload是你的视图名称
-            mav.addObject("uploadStatus", "请检查邮箱格式是否正确");  //你可以在视图中使用这些数据
+            mav.addObject("uploadStatus", "邮箱格式不正确");  //你可以在视图中使用这些数据
             return mav;
         }
 
@@ -61,9 +66,9 @@ public class EmailController {
 
         // 判断文本内容是否超过200字
         if (text.length() > 200) {
-            System.out.println("文本内容超过200字");
+            System.out.println("文本内容不能超过200个字");
             ModelAndView mav = new ModelAndView("email/sendPlainEmail");  //假设upload是你的视图名称
-            mav.addObject("uploadStatus", "文本内容超过200字");  //你可以在视图中使用这些数据
+            mav.addObject("uploadStatus", "文本内容不能超过200个字");  //你可以在视图中使用这些数据
             return mav;
         }
 
