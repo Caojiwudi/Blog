@@ -24,7 +24,7 @@ public interface IArticleService {
     // 发布文章
     public void publish(Article article);
 
-    // 根据主键更新文章
+    // 根据主键修改更新文章
     public void updateArticleWithId(Article article);
 
     // 根据主键删除文章

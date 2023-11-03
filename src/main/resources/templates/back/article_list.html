@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='文章管理',active='article'">
 <header th:replace="back/header::headerFragment(${title},${active})"></header>
 <head>
-    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <!-- 默认的header name是X-CSRF-TOKEN -->
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body class="fixed-left">
 <div id="wrapper">

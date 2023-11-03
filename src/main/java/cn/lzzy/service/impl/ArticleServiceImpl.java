@@ -33,6 +33,7 @@ public class ArticleServiceImpl implements IArticleService {
     private StatisticMapper statisticMapper;
     @Autowired
     private RedisTemplate redisTemplate;
+
     @Autowired
     private CommentMapper commentMapper;
 

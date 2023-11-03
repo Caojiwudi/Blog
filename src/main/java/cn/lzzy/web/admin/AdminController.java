@@ -106,6 +106,7 @@ public class AdminController {
     @ResponseBody
     public ArticleResponseData delete(@RequestParam int id) {
         try {
+            logger.info("文章删除开始");
             articleServiceImpl.deleteArticleWithId(id);
             logger.info("文章删除成功");
             return ArticleResponseData.ok();
