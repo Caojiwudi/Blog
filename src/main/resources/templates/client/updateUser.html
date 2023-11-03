@@ -14,11 +14,11 @@
     <form action="/updateUser" method="post" th:action="@{/updateUser}">
 
         <div class="form-group">
-            用户名: <input name="username" type="text"/><br/>
+            用户名: <input name="username" type="text" required/><br/>
         </div>
 
         <div class="form-group">
-            密&nbsp;&nbsp;码: <input name="password" type="password"/><br/>
+            密&nbsp;&nbsp;码: <input name="password" type="password" required/><br/>
         </div>
         <button type="submit">修改</button>
     </form>
