@@ -113,9 +113,6 @@
                                 <th:block th:if="${null != contents}">
                                     <input name="tags" id="tags" type="text" class="form-control" th:value="${contents.tags}" />
                                 </th:block>
-                                <th:block th:unless="${null != contents}">
-                                    <input name="tags" id="tags" type="text" class="form-control" placeholder="请输入文章标签" />
-                                </th:block>
                             </div>
                             <div class="clearfix"></div>
                             <div id="md-container" class="form-group">
