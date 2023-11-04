@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="_csrf" th:content="${_csrf.token}"/>
@@ -12,13 +12,9 @@
 <div class="container">
     <h2>修改用户名</h2>
     <form action="/updateUser" method="post" th:action="@{/updateUser}">
-
+        <h3 align="center">当前用户名：<span sec:authentication="name" style="color: #007bff"></span></h3>
         <div class="form-group">
-            用户名: <input name="username" type="text" required/><br/>
-        </div>
-
-        <div class="form-group">
-            密&nbsp;&nbsp;码: <input name="password" type="password" required/><br/>
+            新用户名: <input name="username" type="text" required/><br/>
         </div>
         <button type="submit">修改</button>
     </form>

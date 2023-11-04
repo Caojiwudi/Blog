@@ -54,15 +54,18 @@ public class UserController {
         return principal.getUsername();
     }
 
-    @ResponseBody
     @PostMapping(value = "/updateUser")
-    public String updateUser(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
+    public String updateUser(@RequestParam String username,HttpServletRequest request) {
         System.out.println(username);
-        System.out.println(password);
         String csrf_token = request.getParameter("_csrf");
         System.out.println(csrf_token);
         iUserService.updateByUsername(username, getUser2());
-        return "用户名修改成功";
+        // 清除认证信息
+        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication1 != null) {
+            SecurityContextHolder.getContext().setAuthentication(null);
+        }
+        return "comm/update_user_finish";
     }
     // 新用户注册
     @GetMapping("/toRegister") // http://localhost/toRegister
