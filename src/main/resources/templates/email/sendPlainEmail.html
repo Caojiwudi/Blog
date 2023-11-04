@@ -9,7 +9,7 @@
 <body>
 <h2>发送纯文本邮件</h2>
 <div th:if="${uploadStatus}" style="color: red" th:text="${uploadStatus}">上传成功</div>
-<form action="/sendEmail" method="post">
+<form action="/sendEmail" method="get">
   <label for="recipient">收件人:</label><br>
   <input type="text" id="recipient" name="recipient"><br>
   <label for="subject">主题:</label><br>

@@ -37,7 +37,7 @@ public class EmailController {
         return "email/sendPlainEmail";
     }
 
-    @PostMapping("/sendEmail")
+    @GetMapping("/sendEmail")
     public Object addStudentDispose(String recipient, String subject, String text) {
 
         // 判断目标邮箱地址是否为空
