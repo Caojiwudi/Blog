@@ -99,7 +99,7 @@ public class ArticleServiceImpl implements IArticleService {
 
     // 更新文章
     @Override
-    public void updateArticleWithId(Article article) {
+    public void  updateArticleWithId(Article article) {
         article.setModified(new Date());
         articleMapper.updateArticleWithId(article);
         redisTemplate.delete("article_" + article.getId());

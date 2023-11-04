@@ -90,6 +90,7 @@ public class AdminController {
     // 文章修改处理
     @PostMapping(value = "/article/modify")
     @ResponseBody
+
     public ArticleResponseData modifyArticle(Article article) {
         try {
             articleServiceImpl.updateArticleWithId(article);

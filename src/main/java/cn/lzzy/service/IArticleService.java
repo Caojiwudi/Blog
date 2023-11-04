@@ -28,6 +28,6 @@ public interface IArticleService {
     public void updateArticleWithId(Article article);
 
     // 根据主键删除文章
-    public void deleteArticleWithId(int id);
+    public void  deleteArticleWithId(int id);
 
 }
