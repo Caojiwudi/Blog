@@ -9,6 +9,7 @@ import cn.lzzy.model.domain.Comment;
 import cn.lzzy.model.domain.Statistic;
 import cn.lzzy.service.ISiteService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +47,14 @@ public class SiteServiceImpl implements ISiteService {
         PageHelper.startPage(1,limit>10 || limit<1 ? 10:limit);
         List<Comment> byPage = commentMapper.selectNewComment();
         return byPage;
+    }
+
+    @Override
+    public PageInfo<Comment> selectCommentWithPage(int page, int count) {
+        PageHelper.startPage(page, count);
+        List<Comment> commentList = commentMapper.selectNewComment();
+        PageInfo<Comment> pageInfo=new PageInfo<>(commentList);
+        return pageInfo;
     }
 
     @Override

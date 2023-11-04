@@ -1,5 +1,7 @@
 package cn.lzzy.model.domain;
 
+import java.util.Date;
+
 /**
  * @author 周世雄
  * @date 2023/10/27 11:54
@@ -11,6 +13,7 @@ public class Statistic {
     private Integer articleId;   // 评论的文章id
     private Integer hits;        // 点击量
     private Integer commentsNum;// 评论总量
+
 
     public Integer getId() {
         return id;

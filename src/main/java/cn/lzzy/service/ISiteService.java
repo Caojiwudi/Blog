@@ -3,6 +3,7 @@ package cn.lzzy.service;
 import cn.lzzy.model.ResponseData.StaticticsBo;
 import cn.lzzy.model.domain.Article;
 import cn.lzzy.model.domain.Comment;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface ISiteService {
     public void updateStatistics(Article article);
     //最新收到的评论
     public List<Comment> recentComments(int count) ;
+
+    PageInfo<Comment> selectCommentWithPage(int page, int count);
 }
