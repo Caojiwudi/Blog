@@ -158,5 +158,35 @@ public class EmailSendController {
         request.setAttribute("message",result);
         return index(request);
     }
+    //加载模板
+    @GetMapping("/template")
+    public String loadTemplate(HttpServletRequest request){
+        String name=request.getParameter("name");
+        return "client/email/moban/"+name;
+    }
+    //发送模板邮件
+    @PostMapping("sendTemplate")
+    public String sendImage(HttpServletRequest request) throws MessagingException {
 
+        //-------发送模板邮件
+        MimeMessage message=mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom(emailfrom);
+        helper.setTo(request.getParameter("to"));
+        helper.setSubject(request.getParameter("subject"));
+        helper.setText(request.getParameter("content"),true);
+
+        String result;
+        try {
+            //发送邮件
+            mailSender.send(message);
+            result="模板邮件发送成功";
+        } catch (MailException e) {
+            result="模板邮件发送失败 " + e.getMessage();
+            System.out.println(result);
+            e.printStackTrace();
+        }
+        request.setAttribute("message",result);
+        return index(request);
+    }
 }
