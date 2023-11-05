@@ -38,8 +38,8 @@ import java.util.Collection;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
-    @Value("${COOKIE.VALIDITY}")
-    private Integer COOKIE_VALIDITY;
+//    @Value("${COOKIE.VALIDITY}")
+//    private Integer COOKIE_VALIDITY;
 
     /**
      * 重写configure(HttpSecurity http)方法，进行用户授权管理
@@ -94,8 +94,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         httpServletResponse.sendRedirect("/login?error&url=" + url);
                     }
                 });
-        // 3、设置用户登录后cookie有效期，默认值
-        http.rememberMe().alwaysRemember(true).tokenValiditySeconds(COOKIE_VALIDITY);
+//        // 3、设置用户登录后cookie有效期，默认值
+//        http.rememberMe().alwaysRemember(true).tokenValiditySeconds(COOKIE_VALIDITY);
         // 4、自定义用户退出控制
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
         // 5、针对访问无权限页面出现的403页面进行定制处理
