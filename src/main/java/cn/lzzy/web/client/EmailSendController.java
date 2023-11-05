@@ -77,7 +77,7 @@ public class EmailSendController {
     @PostMapping("sendAttachment")
     public String sendAttachment(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws MessagingException {
 
-        String dirName="c:\\upload\\";
+        String dirName="D:\\file\\";
         String fileName = file.getOriginalFilename();
         File uploadDir = new File(dirName);
         if (!uploadDir.exists())
@@ -95,7 +95,7 @@ public class EmailSendController {
 
         //-------发送邮件附件
         MimeMessage message=mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true,"UTF-8");
         helper.setFrom(emailfrom);
         helper.setTo(request.getParameter("to"));
         helper.setSubject(request.getParameter("subject"));
@@ -114,6 +114,49 @@ public class EmailSendController {
         request.setAttribute("message",result);
         return index(request);
     }
+    //发送图片
+    @PostMapping("sendImage")
+    public String sendImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws MessagingException {
 
+        String dirName="D:\\file\\tupan\\";
+        String fileName = file.getOriginalFilename();
+        File uploadDir = new File(dirName);
+        if (!uploadDir.exists())
+            uploadDir.mkdirs();
+        String path = dirName + fileName;
+        // 新建一个文件
+        File tempFile = new File(path);
+        try {
+            // 将上传的文件写入新建的文件中
+            file.transferTo(tempFile);
+        } catch (Exception e) {
+            request.setAttribute("message","图片文件存储失败 "+e.getMessage());
+            e.printStackTrace();
+        }
+        //-------发送邮件图片
+        MimeMessage message=mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom(emailfrom);
+        helper.setTo(request.getParameter("to"));
+        helper.setSubject(request.getParameter("subject"));
+
+        String fileKey=System.currentTimeMillis()+"";
+        String html="<img src=\"cid:"+fileKey+"\"/>"; //邮件内容 为html， filekey必须跟下面的图片对应
+        helper.setText(html,true);
+        helper.addInline(fileKey,tempFile); //file key对应图片文件
+
+        String result;
+        try {
+            //发送邮件
+            mailSender.send(message);
+            result="图片邮件发送成功";
+        } catch (MailException e) {
+            result="图片邮件发送失败 " + e.getMessage();
+            System.out.println(result);
+            e.printStackTrace();
+        }
+        request.setAttribute("message",result);
+        return index(request);
+    }
 
 }

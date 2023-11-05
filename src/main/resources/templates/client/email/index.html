@@ -65,11 +65,14 @@
 <div class="btn-panel">
     <button onclick="show(1)" th:class="${page=='1'?'selected':''}">发纯文本邮件</button>
     <button onclick="show(2)" th:class="${page=='2'?'selected':''}">发附件邮件</button>
+    <button onclick="show(3)" th:class="${page=='3'?'selected':''}">发图片邮件</button>
+
 </div>
 
 <div class="page-content" th:switch="${page}">
     <th:block th:case="'1'" th:include="client/email/text"></th:block>
     <th:block th:case="'2'" th:include="client/email/attach"></th:block>
+    <th:block th:case="'3'" th:include="client/email/image"></th:block>
 
     <th:block th:case="*">
         <div  style="text-align: center;padding:20px;">请选择功能</div>
