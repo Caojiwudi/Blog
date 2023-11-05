@@ -82,25 +82,28 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <h4 class="page-title">
-                                编辑评论
+                            编辑评论
                         </h4>
                     </div>
                     <div class="col-md-12">
                         <form id="articleForm">
-                            <input id="id" type="hidden" th:value="${comment.id}"/>
-                          <div class="form-group col-md-12" style="padding: 0 10px 0 0;">
+                            <input id="id" type="hidden" name="id"
+                                   th:value="${comment.id}" />
 
-                            <textarea id="content-editor"  class="form-control" placeholder="请输入评论内容" name="content"
-                                      required="required" th:utext="${comment.content}"></textarea>
+                            <div class="form-group col-md-12" style="padding: 0 10px 0 0;">
+
+                                <textarea id="content-editor"  class="form-control" placeholder="请输入评论内容" name="content"
+                                          required="required" th:utext="${comment.content}"></textarea>
+
                             </div>
                             <div class="clearfix"></div>
 
-                        <div class="text-right">
-                            <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/comments}">返回列表</a>
-                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subArticle();">
-                                保存评论
-                            </button>
-                        </div>
+                            <div class="text-right">
+                                <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/comments}">返回列表</a>
+                                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subArticle();">
+                                    保存评论
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -121,6 +124,25 @@
 <script th:src="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.js}"></script>
 <script th:src="@{/back/plugins/to-markdown/3.1.0/to-markdown.min.js}"></script>
 
-<script th:src="@{/back/js/article.js}"></script>
+<script >
+    function subArticle() {
+        var params = $("#articleForm").serialize();
+        $.ajax({
+            url:'/comments/comment/edit',
+            data:params,
+            success: function (result) {
+                if (result && result.success) {
+                    alert("保存成功")
+                    setTimeout(function () {
+                        window.location.href = '/admin/comments';
+                    }, 500);
+                } else {
+                    alert("保存失败")
+                }
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

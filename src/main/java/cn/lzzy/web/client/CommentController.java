@@ -57,6 +57,7 @@ public class CommentController {
         }
     }
 
+    //编辑评论
     @RequestMapping(value = "/edit/{id}")
     public String edit(@PathVariable(name = "id") int id,
                        HttpServletRequest request) {
