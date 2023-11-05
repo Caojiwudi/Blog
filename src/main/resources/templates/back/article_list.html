@@ -23,7 +23,6 @@
                                 <th width="35%">文章标题</th>
                                 <th width="15%">发布时间</th>
                                 <th>浏览量</th>
-                                <th>所属分类</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -35,7 +34,6 @@
                                     </td>
                                     <td><th:block th:text="${commons.dateFormat(article.created)}"/></td>
                                     <td><th:block th:text="${article.hits}"/></td>
-                                    <td><th:block th:text="${article.categories}"/></td>
                                     <td>
                                         <a th:href="@{'/admin/article/'+${article.id}}"
                                            class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
@@ -43,8 +41,6 @@
                                         <a href="javascript:void(0)" th:onclick="'delArticle('+${article.id}+');'"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-trash-o"></i> <span>删除</span></a>
-                                        <a class="btn btn-warning btn-sm waves-effect waves-light m-b-5" href="javascript:void(0)">
-                                            <i class="fa fa-rocket"></i> <span>预览</span></a>
                                     </td>
                                 </tr>
                             </th:block>
