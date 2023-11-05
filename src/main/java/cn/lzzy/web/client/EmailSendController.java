@@ -73,6 +73,47 @@ public class EmailSendController {
         request.setAttribute("message",message);
         return index(request);
     }
+    //发送上传附件
+    @PostMapping("sendAttachment")
+    public String sendAttachment(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws MessagingException {
+
+        String dirName="c:\\upload\\";
+        String fileName = file.getOriginalFilename();
+        File uploadDir = new File(dirName);
+        if (!uploadDir.exists())
+            uploadDir.mkdirs();
+        String path = dirName + fileName;
+        // 新建一个文件
+        File tempFile = new File(path);
+        try {
+            // 将上传的文件写入新建的文件中
+            file.transferTo(tempFile);
+        } catch (Exception e) {
+            request.setAttribute("message","上传文件存储失败 "+e.getMessage());
+            e.printStackTrace();
+        }
+
+        //-------发送邮件附件
+        MimeMessage message=mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom(emailfrom);
+        helper.setTo(request.getParameter("to"));
+        helper.setSubject(request.getParameter("subject"));
+        helper.setText("");
+        helper.addAttachment(fileName,tempFile);
+        String result;
+        try {
+            //发送邮件
+            mailSender.send(message);
+            result="附件邮件发送成功";
+        } catch (MailException e) {
+            result="附件邮件发送失败 " + e.getMessage();
+            System.out.println(result);
+            e.printStackTrace();
+        }
+        request.setAttribute("message",result);
+        return index(request);
+    }
 
 
 }
