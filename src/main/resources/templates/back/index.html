@@ -40,7 +40,7 @@
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <li class="list-group-item" th:each="article : ${articles}">
-                                        <span class="badge badge-primary" th:text="${article.commentsNum}">
+                                        <span class="badge badge-primary" th:text="${article.hits}">
                                         </span>
                                         <a target="_blank" th:href="${commons.site_url('/article/')}+${article.id}"
                                              th:text="${article.title}"></a>
