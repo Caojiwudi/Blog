@@ -67,6 +67,7 @@
     <button onclick="show(2)" th:class="${page=='2'?'selected':''}">发附件邮件</button>
     <button onclick="show(3)" th:class="${page=='3'?'selected':''}">发图片邮件</button>
     <button onclick="show(4)" th:class="${page=='4'?'selected':''}">发模板邮件</button>
+    <button onclick="show(5)" th:class="${page=='5'?'selected':''}">发定时邮件</button>
 </div>
 
 <div class="page-content" th:switch="${page}">
@@ -74,6 +75,7 @@
     <th:block th:case="'2'" th:include="client/email/attach"></th:block>
     <th:block th:case="'3'" th:include="client/email/image"></th:block>
     <th:block th:case="'4'" th:include="client/email/template"></th:block>
+    <th:block th:case="'5'" th:include="client/email/schedule"></th:block>
     <th:block th:case="*">
         <div  style="text-align: center;padding:20px;">请选择功能</div>
 

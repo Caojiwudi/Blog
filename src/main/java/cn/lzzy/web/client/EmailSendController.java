@@ -1,5 +1,7 @@
 package cn.lzzy.web.client;
 
+import cn.lzzy.model.domain.ScheduleEmail;
+import cn.lzzy.service.IMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.Date;
 
 
 /**
@@ -31,6 +34,9 @@ import java.io.File;
 @Controller
 @RequestMapping("/email")
 public class EmailSendController {
+
+    @Autowired
+    private IMailService emailService; //定时任务接口引入
 
     @Autowired
     private JavaMailSenderImpl mailSender; // 自动注入邮件发送器
@@ -187,6 +193,21 @@ public class EmailSendController {
             e.printStackTrace();
         }
         request.setAttribute("message",result);
+        return index(request);
+    }
+    //发送定时邮件
+    @PostMapping("/sendScheduledText")
+    private String sendScheduledTextTextEmail(@RequestParam("to") String to,
+                                              @RequestParam("week") int week,
+                                              @RequestParam("hour") int hour,
+                                              @RequestParam("minute") int minute,
+                                              HttpServletRequest request) {
+
+        //定时参数（5位数字，第1位是星期几，第2-3位是几时，第4-5位是几分
+        String schedule=week+(hour<10?"0":"")+hour+(minute<10?"0":"")+minute;
+        ScheduleEmail email=new ScheduleEmail(to,Integer.valueOf(schedule),"个人博客系统流量统计情况","博客访问量","0","",new Date());
+        emailService.saveScheduledEmail(email);
+        request.setAttribute("message", "定时邮件提交成功");
         return index(request);
     }
 }
