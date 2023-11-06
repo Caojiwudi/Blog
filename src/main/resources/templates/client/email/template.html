@@ -1,0 +1,70 @@
+<!--模板邮件-->
+<script>
+    function checkform(){
+        let address=val('to');
+        if(address==''){
+            alert('请输入邮箱地址');
+            return false;
+        }
+        if(!isEmail(address)){
+            alert('邮箱格式不正确');
+            return false;
+        }
+        if(val('subject')==''){
+            alert('邮件主题不能为空');
+            return false;
+        }
+
+        let editor=$('#templateEditor');
+        let empty=false;
+        let value='';
+        editor.find("input").each(function(){
+            if($(this).val()==''){
+                empty=true;
+                //模板内的输入没有填写
+            }else
+                value=$(this).val();
+        });
+        if(empty){
+            alert('请输入用户姓名');
+            return false;
+        }
+
+        let html=editor.data('template');
+        html=html.replaceAll('$input',value);
+        $('#content').val(html);
+
+        return true;
+    }
+
+    //加载模板
+    function loadTemplate(name){
+        if(name=='') return;
+        $.get('/email/template?name='+name,function(html){
+            let html2=html.replaceAll('$input',"<input type='text'/>");
+            $('#templateEditor').html(html2).data('template',html)//设置编辑区的html内容
+        });
+    }
+
+    $(function(){
+        loadTemplate('resume');
+    })
+
+</script>
+<form method="post" th:action="@{sendTemplate}" onsubmit="return checkform();">
+    <input type="hidden" name="page" value="4"/>
+    <input type="hidden" id="content" name="content" />
+    <div>
+        <label for="to">邮箱地址（收件人）：</label>
+        <input id="to" name="to"  type="text">
+    </div>
+
+    <div>
+        <label for="subject">邮件主题：</label>
+        <input id="subject" name="subject"  type="text">
+    </div>
+
+    <div style="text-align: center">模板内容编辑</div>
+    <div id="templateEditor" style="border:2px solid #aaa;height: 500px;padding:30px;" contenteditable="false"><div style="height: 100%;color:#9999;display: flex;align-items: center;justify-content: center">请选择模板</div></div>
+    <button type="submit">发送邮件</button>
+</form>

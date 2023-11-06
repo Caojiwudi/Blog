@@ -1,0 +1,52 @@
+<!--定时邮件-->
+<script>
+    function checkform(){
+        let address=val('to');
+        if(address==''){
+            alert('请输入邮箱地址');
+            return false;
+        }
+        if(!isEmail(address)){
+            alert('邮箱格式不正确');
+            return false;
+        }
+
+        if(val('week')==''||val('hour')==''||val('minute')==''){
+            alert('请设置定时发送时间');
+            return false;
+        }
+        return true;
+    }
+
+</script>
+<form method="post" th:action="@{/email/sendScheduledText}" onsubmit="return checkform();">
+    <input type="hidden" name="page" value="5"/>
+    <div>
+        <label for="to">邮箱地址（收件人）：</label>
+        <input id="to" name="to"  type="text">
+    </div>
+
+    <div>
+        <label for="subject">邮件内容：</label>
+        博客系统访问量信息
+    </div>
+
+    <div>
+        <label for="content">定时：</label>
+        <select id="week" name="week">
+            <option value="">请选择..</option>
+            <option value="1">星期一</option>
+            <option value="2">星期二</option>
+            <option value="3">星期三</option>
+            <option value="4">星期四</option>
+            <option value="5">星期五</option>
+            <option value="6">星期六</option>
+            <option value="7">星期天</option>
+        </select>
+        <input type="number" id="hour" name="hour" min="0" max="23" maxlength="2" onchange="if(this.value>23) this.value=23">小时
+        <input type="number" id="minute" name="minute" min="0" max="59" maxlength="2" onchange="if(this.value>59) this.value=59">分
+    </div>
+
+
+    <button type="submit">发送邮件</button>
+</form>

@@ -1,0 +1,86 @@
+<!--邮件功能主页-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>邮件管理</title>
+    <link href="/user/css/emailTemplate.css" rel="stylesheet">
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .btn-panel{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        button.selected{
+            background-color: #0066ff;
+        }
+    </style>
+    <script>
+        function show(c){
+            location.href='index?page='+c;
+        }
+
+        function val(id){
+            return trim($('#'+id).val());
+        }
+
+
+        function trim(str) {
+            return str.replace(/(^\s*)|(\s*$)/g, '');
+        }
+
+        function isEmail(v){
+            let reg = /^[a-zA-Z0-9]+([-_.][A-Za-zd]+)*@([a-zA-Z0-9]+[-.])+[A-Za-zd]{2,5}$/
+            return reg.test(v);
+        }
+        window.onload=function(){
+            let message='[[${message}]]';
+            if(message!='')
+                alert(message);
+        }
+    </script>
+</head>
+<body>
+<h1>邮箱管理</h1>
+<div class="btn-panel">
+    <button onclick="show(1)" th:class="${page=='1'?'selected':''}">发纯文本邮件</button>
+    <button onclick="show(2)" th:class="${page=='2'?'selected':''}">发附件邮件</button>
+    <button onclick="show(3)" th:class="${page=='3'?'selected':''}">发图片邮件</button>
+    <button onclick="show(4)" th:class="${page=='4'?'selected':''}">发模板邮件</button>
+    <button onclick="show(5)" th:class="${page=='5'?'selected':''}">发定时邮件</button>
+</div>
+
+<div class="page-content" th:switch="${page}">
+    <th:block th:case="'1'" th:include="client/email/text"></th:block>
+    <th:block th:case="'2'" th:include="client/email/attach"></th:block>
+    <th:block th:case="'3'" th:include="client/email/image"></th:block>
+    <th:block th:case="'4'" th:include="client/email/template"></th:block>
+    <th:block th:case="'5'" th:include="client/email/schedule"></th:block>
+    <th:block th:case="*">
+        <div  style="text-align: center;padding:20px;">请选择功能</div>
+
+    </th:block>
+</div>
+<a href="/">返回首页</a>
+</body>
+</html>
