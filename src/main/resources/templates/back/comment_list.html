@@ -21,10 +21,10 @@
                             <thead>
                             <tr>
                                 <th >评论内容</th>
-                                <th >评论人</th>
+                                <th >用户名</th>
                                 <th >评论时间</th>
-                                <th >评论人IP</th>
-                                <th>评论文章地址</th>
+                                <th >用户IP</th>
+                                <th>文章地址</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -70,7 +70,7 @@
         if(confirm('确定删除该评论?')){
             $.ajax({
                 type:'post',
-                url : '/admin/comment/delete ',
+                url : '/admin/comment/delete ``                                                                                                                                                                                     ',
                 data: {id:id},
                 dataType: 'json',
                 beforeSend : function(xhr) {
