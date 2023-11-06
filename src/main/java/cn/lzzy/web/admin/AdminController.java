@@ -1,18 +1,22 @@
 package cn.lzzy.web.admin;
 
-import com.github.pagehelper.PageInfo;
+
 import cn.lzzy.model.ResponseData.ArticleResponseData;
 import cn.lzzy.model.ResponseData.StaticticsBo;
 import cn.lzzy.model.domain.Article;
 import cn.lzzy.model.domain.Comment;
 import cn.lzzy.service.IArticleService;
+import cn.lzzy.service.ICommentService;
 import cn.lzzy.service.ISiteService;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -31,6 +35,9 @@ public class AdminController {
     private ISiteService siteServiceImpl;
     @Autowired
     private IArticleService articleServiceImpl;
+    @Autowired
+    private ICommentService commentServiceImpl;
+
 
     // 管理中心起始页
     @GetMapping(value = {"", "/index"})
@@ -117,4 +124,26 @@ public class AdminController {
         }
     }
 
+    //评论删除
+    // 向评论页面跳转
+    @RequestMapping(value = "/comments")
+    public String pinglun(@RequestParam(value = "page", defaultValue = "1") int page,
+                          @RequestParam(value = "count", defaultValue = "10") int count,
+                          HttpServletRequest request) {
+        PageInfo<Comment> comments = siteServiceImpl.selectCommentWithPage(page, count);
+        PageInfo<Article> pageInfo =
+                articleServiceImpl.selectArticleWithPage(page, count);
+        request.setAttribute("articles", pageInfo);
+        request.setAttribute("comments", comments);
+        return "back/comment_list";
+    }
+
+    // 评论删除
+    @RequestMapping(value = "/comment/delete")
+    @ResponseBody
+    public ArticleResponseData delete(@RequestParam int id,
+                                      HttpServletRequest request) {
+        int a = commentServiceImpl.deleteCommentId(id);
+        return ArticleResponseData.ok();
+    }
 }

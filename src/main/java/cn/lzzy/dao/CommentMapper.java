@@ -1,10 +1,7 @@
 package cn.lzzy.dao;
 
 import cn.lzzy.model.domain.Comment;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 /**
@@ -33,6 +30,16 @@ public interface CommentMapper {
     public Integer countComment();
 
     // 通过文章id删除评论信息
-    @Delete("DELETE FROM t_comment WHERE article_id=#{aid}")
-    public void deleteCommentWithId(Integer aid);
+    @Delete("DELETE FROM t_comment WHERE id=#{aid}")
+     int deleteCommentWithId(Integer aid);
+
+    //通过id更新评论
+    @Update("update t_comment SET content = #{content} where id=#{id}")
+    int update(int id,String content);
+
+    //根据id查询评论
+    @Select("SELECT * FROM t_comment WHERE id=#{id}")
+     Comment selectId(Integer id);
+
+
 }

@@ -1,0 +1,49 @@
+
+<!--纯文本邮件-->
+<script>
+    function checkform(){
+        let address=val('to');
+        if(address==''){
+            alert('请输入邮箱地址');
+            return false;
+        }
+        if(!isEmail(address)){
+            alert('邮箱格式不正确');
+            return false;
+        }
+        if(val('subject')==''){
+            alert('邮件主题不能为空');
+            return false;
+        }
+        let content=val('content');
+        if(content==''){
+            alert('请输入文本内容');
+            return false;
+        }
+        if(content.length>200){
+            alert('文本内容不能超过200个字');
+            return false;
+        }
+        return true;
+    }
+
+</script>
+<form method="post" th:action="@{/email/sendText}" onsubmit="return checkform();">
+    <input type="hidden" name="page" value="1"/>
+    <div>
+        <label for="to">邮箱地址（收件人）：</label>
+        <input id="to" name="to"  type="text">
+    </div>
+
+    <div>
+        <label for="subject">邮件主题：</label>
+        <input id="subject" name="subject"  type="text">
+    </div>
+
+    <div>
+        <label for="content">邮件内容：</label>
+        <textarea cols="50" name="content" id="content" rows="10"></textarea>
+    </div>
+
+    <button type="submit">发送邮件</button>
+</form>

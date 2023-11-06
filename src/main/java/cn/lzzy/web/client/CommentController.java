@@ -9,15 +9,10 @@ import com.vdurmont.emoji.EmojiParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.model.IModel;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -34,7 +29,7 @@ public class CommentController {
     private static final Logger logger = LoggerFactory.getLogger(CommentController.class);
 
     @Autowired
-    private ICommentService commentServcieImpl;
+    private ICommentService commentServiceImpl;
 
     // 发表评论操作
     @PostMapping(value = "/publish")
@@ -53,7 +48,7 @@ public class CommentController {
         comments.setAuthor(user.getUsername());
         comments.setContent(text);
         try {
-            commentServcieImpl.pushComment(comments);
+            commentServiceImpl.pushComment(comments);
             logger.info("发布评论成功，对应文章id: " + aid);
             return ArticleResponseData.ok();
         } catch (Exception e) {
@@ -61,5 +56,24 @@ public class CommentController {
             return ArticleResponseData.fail();
         }
     }
+
+    //编辑评论
+    @RequestMapping(value = "/edit/{id}")
+    public String edit(@PathVariable(name = "id") int id,
+                       HttpServletRequest request) {
+        Comment comment =  commentServiceImpl.selectById(id);
+        request.setAttribute("comment", comment);
+        return "back/comment_edit";
+    }
+
+    @RequestMapping(value = "/comment/edit")
+    @ResponseBody
+    public ArticleResponseData editsave(@RequestParam int id,@RequestParam String content,
+                                        HttpServletRequest request) {
+        int a = commentServiceImpl.save(id, content);
+
+        return a>0?ArticleResponseData.ok():ArticleResponseData.fail();
+    }
+
 
 }
