@@ -44,8 +44,7 @@ public class EmailServicelmpl implements IMailService {
 
     //spring 定时管理器
     private ThreadPoolTaskScheduler taskScheduler;
-    private final static String[] WEEK_NAMES=new String[]{"MON","TUES","WED","THUR","FRI","SAT","SUN"};
-
+    private final static String[] WEEK_NAMES=new String[]{"MON","TUE","WED","THU","FRI","SAT","SUN"};
     /**
      * 初始化spring定时管理器，并动态配置邮件定时器
      */
