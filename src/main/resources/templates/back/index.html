@@ -42,8 +42,9 @@
                                         <li class="list-group-item" th:each="article : ${articles}">
                                         <span class="badge badge-primary" th:text="${article.hits}">
                                         </span>
-                                        <a target="_blank" th:href="${commons.site_url('/article/')}+${article.id}"
-                                             th:text="${article.title}"></a>
+                                        <a target="_blank" th:href="${commons.site_url('/article/')}+${article.id}">
+                                            <span th:text="${#strings.abbreviate(article.title,10)}"></span>
+                                        </a>
                                         </li>
                                     </ul>
                                 </div>
