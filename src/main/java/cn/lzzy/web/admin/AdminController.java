@@ -61,17 +61,23 @@ public class AdminController {
     // 发表文章
     @PostMapping(value = "/article/publish")
     @ResponseBody
-
     public ArticleResponseData publishArticle(Article article) {
-        if (StringUtils.isBlank(article.getCategories())) {
+        if (StringUtils.isEmpty(article.getCategories())) {
             article.setCategories("默认分类");
         }
+
+        // Check if the content exceeds 200 characters
+        if (article.getContent().length() > 210) {
+            logger.error("文章内容超过210个字，无法发布");
+            return ArticleResponseData.fail("文章内容超过210个字，无法发布");
+        }
+
         try {
             articleServiceImpl.publish(article);
             logger.info("文章发布成功");
             return ArticleResponseData.ok();
         } catch (Exception e) {
-            logger.error("文章发布失败，错误信息: "+e.getMessage());
+            logger.error("文章发布失败，错误信息: " + e.getMessage());
             return ArticleResponseData.fail();
         }
     }
