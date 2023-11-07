@@ -61,10 +61,11 @@
                                         </div>
                                     </div>
                                     <ul class="list-group" th:unless="${comments}==null and ${comments.size()}==0">
-                                        <li class="list-group-item" th:each="comment : ${comments}">
-                                            <th:block th:text="${comment.author}"/>于 <th:block th:text="${commons.dateFormat(comment.created)}"/>：
-                                                <a th:href="${commons.site_url('/article/')}+${comment.articleId}+'#comments'"
-                                                target="_blank" th:utext="${commons.article(comment.content)}"></a>
+                                        <li class="list-group-item" th:each="comment : ${comments}" >
+                                            <span class="overflow">
+                                            <th:block  th:text="${comment.author}"/>于 <th:block th:text="${commons.dateFormat(comment.created)}" />
+                                                <a  th:href="${commons.site_url('/article/')}+${comment.articleId}+'#comments'"
+                                                target="_blank" th:utext="${commons.article(comment.content)}"></a></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -78,5 +79,12 @@
     </div>
 </div>
 <div th:replace="back/footer :: footer"></div>
+<script type="text/javascript">
+    let str=commons.article(comment.content);
+    if (commons.article(comment.content).length>10){
+        str = str.substr(0,10)+"……"
+        console(str);
+    }
+</script>
 </body>
 </html>

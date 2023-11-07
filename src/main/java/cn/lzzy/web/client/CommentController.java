@@ -47,11 +47,17 @@ public class CommentController {
         comments.setCreated(new Date());
         comments.setAuthor(user.getUsername());
         comments.setContent(text);
+
         try {
+            if (comments.getContent().length() > 100) {
+            logger.error("评论内容超过20个字，无法发布");
+            return ArticleResponseData.fail("评论内容超过20个字，无法发布");
+        }
             commentServiceImpl.pushComment(comments);
             logger.info("发布评论成功，对应文章id: " + aid);
             return ArticleResponseData.ok();
         } catch (Exception e) {
+
             logger.error("发布评论失败，对应文章id: " + aid + ";错误描述: " + e.getMessage());
             return ArticleResponseData.fail();
         }

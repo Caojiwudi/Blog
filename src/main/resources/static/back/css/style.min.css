@@ -591,7 +591,14 @@ a:focus {
 
 .list-group-item {
     border-radius: 0;
-    padding: 12px 20px
+    padding: 12px 20px;
+}
+.overflow{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    overflow: ellipsis;
 }
 
 .list-group-item:first-child {
