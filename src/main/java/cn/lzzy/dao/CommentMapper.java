@@ -30,8 +30,8 @@ public interface CommentMapper {
     public Integer countComment();
 
     // 通过文章id删除评论信息
-    @Delete("DELETE FROM t_comment WHERE id=#{aid}")
-     int deleteCommentWithId(Integer aid);
+    @Delete("DELETE FROM t_comment WHERE id=#{id}")
+     int deleteCommentWithId(Integer id);
 
     //通过id更新评论
     @Update("update t_comment SET content = #{content} where id=#{id}")

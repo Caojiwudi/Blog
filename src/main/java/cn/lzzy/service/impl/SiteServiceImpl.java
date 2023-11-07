@@ -44,7 +44,7 @@ public class SiteServiceImpl implements ISiteService {
 
     @Override
     public List<Comment> recentComments(int limit) {
-        PageHelper.startPage(1,limit>10 || limit<1 ? 10:limit);
+        PageHelper.startPage(1,limit>15 || limit<1 ? 15:limit);
         List<Comment> byPage = commentMapper.selectNewComment();
         return byPage;
     }

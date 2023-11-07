@@ -45,7 +45,7 @@
                                            class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-edit"></i> <span>编辑</span></a>
                                         <a href="javascript:void(0)" th:onclick="'delArticle('+${comment.id}+');'"
-                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5">
+                                           class="btn btn-danger btn-sm waves-ffect waves-light m-b-5">
                                             <i class="fa fa-trash-o"></i> <span>删除</span></a>
                                     </td>
                                 </tr>
@@ -67,10 +67,10 @@
         // 获取<meta>标签中封装的_csrf信息
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
-        if(confirm('确定删除该评论?')){
+        if(confirm('确定删除该评论吗?')){
             $.ajax({
                 type:'post',
-                url : '/admin/comment/delete ``                                                                                                                                                                                     ',
+                url : '/admin/comment/delete',
                 data: {id:id},
                 dataType: 'json',
                 beforeSend : function(xhr) {

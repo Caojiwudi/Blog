@@ -156,7 +156,13 @@ public class AdminController {
     @ResponseBody
     public ArticleResponseData delete(@RequestParam int id,
                                       HttpServletRequest request) {
-        int a = commentServiceImpl.deleteCommentId(id);
-        return ArticleResponseData.ok();
+        try {
+            int a = commentServiceImpl.deleteCommentId(id);
+            logger.info("评论删除成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("评论删除失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
     }
 }
