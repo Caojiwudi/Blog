@@ -52,11 +52,11 @@
         <div class="blog-sidebar-widget blog-bor">
             <h2 class="blog-text-center blog-title"><span>阅读排行榜</span></h2>
             <div style="text-align: left">
-                <th:block th:each="article :${articleList}">
-                    <a  style="font-size: 15px;" th:href="@{'/article/'+${article.id}}"
-                        th:text="${articleStat.index+1}+'、'+${article.title}+'('+${article.hits}+')'">
+                <th:block th:each="article : ${articleList}">
+                    <a style="font-size: 15px;" th:href="@{'/article/' + ${article.id}}"
+                       th:text="${articleStat.index+1}+'、' + ${#strings.length(article.title) > 16 ? #strings.substring(article.title, 0, 16) + '...' : article.title} + '(' + ${article.hits} + ')'">
                     </a>
-                    <hr style="margin-top: 0.6rem;margin-bottom: 0.4rem" />
+                    <hr style="margin-top: 0.6rem; margin-bottom: 0.4rem" />
                 </th:block>
             </div>
         </div>
