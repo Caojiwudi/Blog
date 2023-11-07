@@ -50,8 +50,8 @@ public class CommentController {
 
         try {
             if (comments.getContent().length() > 100) {
-            logger.error("评论内容超过20个字，无法发布");
-            return ArticleResponseData.fail("评论内容超过20个字，无法发布");
+            logger.error("评论内容超过100个字，无法发布");
+            return ArticleResponseData.fail("评论内容超过100个字，无法发布");
         }
             commentServiceImpl.pushComment(comments);
             logger.info("发布评论成功，对应文章id: " + aid);
@@ -76,6 +76,11 @@ public class CommentController {
     @ResponseBody
     public ArticleResponseData editsave(@RequestParam int id,@RequestParam String content,
                                         HttpServletRequest request) {
+        if (content.length() > 100) {
+            logger.error("评论内容超过100个字，无法发布");
+            return ArticleResponseData.fail("评论内容超过100个字，无法发布");
+        }
+
         int a = commentServiceImpl.save(id, content);
 
         return a>0?ArticleResponseData.ok():ArticleResponseData.fail();

@@ -594,7 +594,7 @@ a:focus {
     padding: 12px 20px;
 }
 .overflow{
-    width: 200px;
+    width: 250px;
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
