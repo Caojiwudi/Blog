@@ -105,7 +105,14 @@ public class AdminController {
     @ResponseBody
 
     public ArticleResponseData modifyArticle(Article article) {
+        // Check if the content exceeds 250 characters
+        if (article.getContent().length() > 250) {
+            logger.error("文章内容超过250个字，无法重新发布");
+            return ArticleResponseData.fail("文章内容超过250个字，无法重新发布");
+        }
+
         try {
+
             articleServiceImpl.updateArticleWithId(article);
             logger.info("文章更新成功");
             return ArticleResponseData.ok();
