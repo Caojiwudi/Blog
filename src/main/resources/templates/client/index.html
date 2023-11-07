@@ -19,7 +19,7 @@
                         </div>
                     </h2>
                     <!-- 文章摘要-->
-                    <div style="font-size: 16px;" th:utext="${commons.intro(article,75)}" />
+                    <div style="font-size: 16px;" th:utext="${#strings.length(#strings.replace(article.content, '[^\\x00-\\xff]', ' ')) > 40 ? #strings.substring(article.content, 0, 40) + '...' : article.content}" />
                 </div>
             </article>
         </div>
